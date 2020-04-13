@@ -35,6 +35,7 @@ class Dstv(models.Model):
 class House(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    rooms = models.ForeignKey(Room, on_delete=models.CASCADE, default=1)
     price = models.IntegerField(default=6000)
     location = models.PointField()
     wifi = models.ForeignKey(Wifi, on_delete=models.CASCADE, default=2)

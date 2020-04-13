@@ -24,7 +24,7 @@ SECRET_KEY = 'v53b(rz=33p9)ge7@wwt1e!#b!*ybu!m7mo8ff&vu2eh_a#9oj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['b44a6ce5.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['keja-app-backend.herokuapp.com']
 
 # Application definition
 

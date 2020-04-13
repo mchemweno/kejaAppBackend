@@ -41,7 +41,7 @@ def get_houses_around_specific_point(request):
 
     user_location = Point(longitude, latitude, srid=4326)
     try:
-        house = House.objects.annotate(distance=Distance('location', user_location))
+        house = House.objects.annotate(distance=Distance('location', user_location)).order_by('distance')[0:50]
         serializer = HouseSerializer(house, many=True).data
         return Response(serializer)
     except:

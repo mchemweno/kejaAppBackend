@@ -15,7 +15,7 @@ class Room(models.Model):
     number_of_rooms = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.id) + '. ' + self.number_of_rooms
+        return str(self.id) + '. ' + str(self.number_of_rooms)
 
 
 class Wifi(models.Model):

@@ -22,14 +22,14 @@ class Wifi(models.Model):
     wifi_support = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id) + '. ' + self.wifi_support
+        return str(self.id) + '. ' + str(self.wifi_support)
 
 
 class Dstv(models.Model):
     dstv = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id) + '. ' + self.dstv
+        return str(self.id) + '. ' + str(self.dstv)
 
 
 class House(models.Model):

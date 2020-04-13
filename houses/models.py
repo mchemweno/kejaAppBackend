@@ -19,14 +19,14 @@ class Room(models.Model):
 
 
 class Wifi(models.Model):
-    wifi_support = models.CharField(max_length=5)
+    wifi_support = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id) + '. ' + self.wifi_support
 
 
 class Dstv(models.Model):
-    dstv = models.CharField(max_length=5)
+    dstv = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id) + '. ' + self.dstv

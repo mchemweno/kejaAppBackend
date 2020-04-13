@@ -11,11 +11,11 @@ class Category(models.Model):
         return str(self.id) + '. ' + self.house_category
 
 
-# class Room(models.Model):
-#     number_of_rooms = models.IntegerField(default=0)
-#
-#     def __str__(self):
-#         return str(self.id) + '. ' + str(self.number_of_rooms)
+class Room(models.Model):
+    number_of_rooms = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.id) + '. ' + str(self.number_of_rooms) + ' rooms'
 
 
 class Wifi(models.Model):

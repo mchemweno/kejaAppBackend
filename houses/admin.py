@@ -8,5 +8,5 @@ from .models import *
 admin.site.register(House, LeafletGeoAdmin)
 admin.site.register(Dstv)
 admin.site.register(Wifi)
-#admin.site.register(Room)
+admin.site.register(Room)
 admin.site.register(Category)

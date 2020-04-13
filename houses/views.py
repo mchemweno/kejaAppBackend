@@ -21,7 +21,6 @@ def get_houses(request):
 def create_house(request):
     data = request.data
     serializer = HouseSerializer(data=data)
-    print(serializer)
 
     if serializer.is_valid():
         serializer.save()

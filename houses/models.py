@@ -11,7 +11,7 @@ class Category(models.Model):
         return str(self.id) + '. ' + self.house_category
 
 
-class Rooms(models.Model):
+class Room(models.Model):
     number_of_rooms = models.IntegerField(default=0)
 
     def __str__(self):

@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'kejaAppBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'kejaApp',
-        'USER': 'postgres',
-        'PASSWORD': 'Mark2540',
-        'HOST': 'localhost',
+        'NAME': 'dcjp1ubtamqck5',
+        'USER': 'xhtmitsydzndql',
+        'PASSWORD': '9bfeb9f611108cac434e56e239a64b53d123fa10953a6874dca0f20818c78910',
+        'HOST': 'ec2-54-210-128-153.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }

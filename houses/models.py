@@ -31,7 +31,7 @@ class House(models.Model):
     location = models.PointField()
     wifi = models.BooleanField(default=False)
     dstv = models.BooleanField(default=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id) + '. ' + self.name

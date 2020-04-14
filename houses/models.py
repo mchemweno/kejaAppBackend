@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 # Create your models here.
@@ -23,14 +24,20 @@ class Category(models.Model):
         return str(self.id) + '. ' + self.house_category
 
 
+def my_default():
+    return {
+        'wifi': False,
+        'dstv': False
+    }
+
+
 class House(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     rooms = models.IntegerField(default=0)
     price = models.IntegerField()
     location = models.PointField()
-    wifi = models.BooleanField(default=False)
-    dstv = models.BooleanField(default=False)
+    amenities = JSONField(default=my_default)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -28,7 +28,7 @@ class House(models.Model):
 class User(AbstractUser):
     email = models.EmailField(verbose_name='email', max_length=40, unique=True)
     phone = models.IntegerField(null=True)
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['username']
 
     USERNAME_FIELD = 'email'
 

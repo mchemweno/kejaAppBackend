@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import JSONField
+from django.db.models import Pro, ImageField
 from django.contrib.postgres.fields import ArrayField
 
 
@@ -39,8 +40,7 @@ class House(models.Model):
     price = models.IntegerField()
     location = models.PointField()
     amenities = JSONField(default=my_default)
-    images = ArrayField(
-        models.ImageField(upload_to='media/house_images/%y/%m/%d'))
+    images = ImageField(upload_to='media/house_images/%y/%m/%d')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

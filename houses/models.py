@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import JSONField
-from django.db.models import Pro, ImageField
+from django.db.models import ImageField
 from django.contrib.postgres.fields import ArrayField
 
 

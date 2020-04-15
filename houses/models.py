@@ -36,12 +36,11 @@ class House(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     rooms = models.IntegerField(default=0)
-    price = models.IntegerField(default=0)
-    location = models.PointField(null=True, blank=True)
+    price = models.IntegerField()
+    location = models.PointField()
     amenities = JSONField(default=my_default)
     images = ArrayField(
-        models.ImageField(upload_to='media/house_images/%y/%m/%d', blank=True, null=True, default='default.png'),
-        null=True, blank=True)
+        models.ImageField(upload_to='media/house_images/%y/%m/%d'))
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

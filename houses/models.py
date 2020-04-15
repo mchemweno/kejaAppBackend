@@ -40,7 +40,7 @@ class House(models.Model):
     price = models.IntegerField()
     location = models.PointField()
     amenities = JSONField(default=my_default)
-    images = ArrayField(ImageField(upload_to='media/house_images/%y/%m/%d'), null=True, blank=True)
+    images = ArrayField(ImageField(upload_to='media/house_images/%y/%m/%d'), blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

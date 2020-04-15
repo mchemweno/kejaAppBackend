@@ -102,7 +102,7 @@ REST_FRAMEWORK = {
     )
 }
 
-#AUTH_USER_MODEL = 'houses.User'
+AUTH_USER_MODEL = 'houses.User'
 
 DJOSER = {
     'USER_ID_FIELD': 'email',

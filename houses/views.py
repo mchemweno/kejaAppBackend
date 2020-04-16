@@ -26,6 +26,7 @@ def get_houses(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+
 @api_view(['GET'])
 def get_houses_around_specific_point(request):
     try:

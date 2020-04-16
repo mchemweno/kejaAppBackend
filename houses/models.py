@@ -52,3 +52,6 @@ class House(models.Model):
 class HouseImages(models.Model):
     house = models.ForeignKey(House, on_delete=models.CASCADE)
     image = ImageField(upload_to='media/house_images/%y/%m/%d', blank=True)
+
+    def __str__(self):
+        return str(self.id)

@@ -15,7 +15,7 @@ def get_houses(request):
         house = House.objects.all()
         serializer = HouseSerializer(house, many=True).data
         return Response(serializer)
-    except:
+    except DoesNotExist:
         return Response([], status=404)
 
 
@@ -23,11 +23,12 @@ def get_houses(request):
 def create_house(request):
     data = request.data
     serializer = HouseSerializer(data=data)
-
-    if serializer.is_valid():
-        serializer.save()
-        return Response(status=status.HTTP_201_CREATED)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    try:
+        if serializer.is_valid('raise_exception'):
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+    except serializers.ValidationError:
+        return Response(serializers.ValidationError, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
@@ -35,7 +36,7 @@ def get_houses_around_specific_point(request):
     try:
         latitude = float(request.GET.get('latitude', ''))
         longitude = float(request.GET.get('longitude', ''))
-    except:
+    except ValueError:
         return Response({'Error': 'Please pass the latitude and longitude as url parameters'},
                         status=status.HTTP_404_NOT_FOUND)
 
@@ -43,6 +44,8 @@ def get_houses_around_specific_point(request):
     try:
         house = House.objects.annotate(distance=Distance('location', user_location)).order_by('distance')[0:50]
         serializer = HouseSerializer(house, many=True).data
+        for house in serializer['features']:
+            house['properties'].update(ngori=[])
         return Response(serializer)
-    except:
+    except DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)

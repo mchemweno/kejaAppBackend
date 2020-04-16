@@ -4,6 +4,8 @@ from django.contrib.postgres.fields import JSONField
 from django.db.models import ImageField
 from django.contrib.postgres.fields import ArrayField
 
+from imagekit.models import ProcessedImageField
+
 
 # Create your models here.
 
@@ -40,8 +42,15 @@ class House(models.Model):
     price = models.IntegerField()
     location = models.PointField()
     amenities = JSONField(default=my_default)
-    images = ArrayField(ImageField(upload_to='media/house_images/%y/%m/%d'), blank=True)
+    master_image = ProcessedImageField(upload_to='media/master_image/%y/%m/%d',
+                                       format='PNG', blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id) + '. ' + self.name
+
+
+class HouseImages(models.Model):
+    house = models.ForeignKey(House, on_delete=models.CASCADE)
+    image = ProcessedImageField(upload_to='media/house_images/%y/%m/%d',
+                                format='PNG', blank=True)

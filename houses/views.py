@@ -23,7 +23,7 @@ def get_houses(request):
         updates_houses = get_house_images(house_serializer)
         return Response(updates_houses)
     except House.DoesNotExist:
-        return Response([], status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['GET'])
@@ -54,7 +54,7 @@ def create_house(request):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
     except serializers.ValidationError:
-        return Response(serializers.ValidationError, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 def get_house_images(houses_obj):
@@ -68,4 +68,17 @@ def get_house_images(houses_obj):
     return houses_obj
 
 
-"""To do"""
+"""create house images"""
+
+
+@api_view(['POST'])
+def create_house_image(request):
+    data = request.data
+    house_image_serializer = HouseImagesSerializer(data=data)
+    try:
+        if house_image_serializer.is_valid('raise_exception'):
+            house_image_serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+    except serializers.ValidationError:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

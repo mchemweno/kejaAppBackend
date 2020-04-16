@@ -20,4 +20,4 @@ class HouseSerializer(GeoFeatureModelSerializer):
 class HouseImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = HouseImages
-        fields = ('id', 'image')
+        fields = '__all__'

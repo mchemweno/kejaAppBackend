@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
     # path('', include('djoser.urls')),
     # path('', include('djoser.urls.authtoken')),
-    path('', views.get_houses),
+    path('all_houses', views.get_houses),
+    path('all_houses/point', views.get_houses_around_specific_point),
     path('create_house', views.create_house),
-    path('get_houses_point', views.get_houses_around_specific_point)
 ]

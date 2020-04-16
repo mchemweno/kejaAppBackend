@@ -9,8 +9,15 @@ class UserCreateSerializer(UserCreateSerializer):
         model = User
         fields = '__all__'
 
+
 class HouseSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = House
         geo_field = 'location'
         fields = '__all__'
+
+
+class HouseImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HouseImages
+        fields = ('id', 'image')

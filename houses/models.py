@@ -42,8 +42,7 @@ class House(models.Model):
     price = models.IntegerField()
     location = models.PointField()
     amenities = JSONField(default=my_default)
-    master_image = ProcessedImageField(upload_to='media/master_image/%y/%m/%d',
-                                       format='PNG', blank=True)
+    master_image = ProcessedImageField(upload_to='media/master_image/%y/%m/%d')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -52,5 +51,4 @@ class House(models.Model):
 
 class HouseImages(models.Model):
     house = models.ForeignKey(House, on_delete=models.CASCADE)
-    image = ProcessedImageField(upload_to='media/house_images/%y/%m/%d',
-                                format='PNG', blank=True)
+    image = ProcessedImageField(upload_to='media/house_images/%y/%m/%d', blank=True)

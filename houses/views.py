@@ -13,9 +13,10 @@ from .serializers import *
 def get_houses(request):
     try:
         house = House.objects.all()
-        serializer = HouseSerializer(house, many=True).data
-        return Response(serializer)
-    except DoesNotExist:
+        house_serializer = HouseSerializer(house, many=True).data
+        updates_houses = get_house_images(house_serializer)
+        return Response(updates_houses)
+    except House.DoesNotExist:
         return Response([], status=404)
 
 
@@ -43,9 +44,16 @@ def get_houses_around_specific_point(request):
     user_location = Point(longitude, latitude, srid=4326)
     try:
         house = House.objects.annotate(distance=Distance('location', user_location)).order_by('distance')[0:50]
-        serializer = HouseSerializer(house, many=True).data
-        for house in serializer['features']:
-            house['properties'].update(ngori=[])
-        return Response(serializer)
-    except DoesNotExist:
+        house_serializer = HouseSerializer(house, many=True).data
+        updates_houses = get_house_images(house_serializer)
+        return Response(updates_houses)
+    except House.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+def get_house_images(houses_obj):
+    for house in houses_obj['features']:
+        house_images = HouseImages.objects.filter(house=house['id']).only('id', 'image')
+        house_images_serializer = HouseImagesSerializer(house_images, many=True)
+        house['properties'].update(house_images=house_images_serializer.data)
+    return houses_obj

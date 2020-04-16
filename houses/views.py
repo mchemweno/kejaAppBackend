@@ -55,5 +55,8 @@ def get_house_images(houses_obj):
     for house in houses_obj['features']:
         house_images = HouseImages.objects.filter(house=house['id']).only('id', 'image')
         house_images_serializer = HouseImagesSerializer(house_images, many=True)
-        house['properties'].update(house_images=house_images_serializer.data)
+        image_link_array = []
+        for image in house_images_serializer.data:
+            image_link_array.append(image['image'])
+        house['properties'].update(house_images=image_link_array)
     return houses_obj

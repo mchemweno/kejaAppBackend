@@ -40,7 +40,7 @@ class House(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     rooms = models.IntegerField(default=0)
     price = models.IntegerField()
-    location = models.PointField()
+    location = models.PointField(blank=True)
     amenities = JSONField(default=my_default)
     master_image = ImageField(upload_to='media/master_image/%y/%m/%d')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

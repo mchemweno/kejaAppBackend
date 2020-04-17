@@ -45,17 +45,32 @@ def get_houses_around_specific_point(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'PATCH', 'DELETE'])
 def create_house(request):
-    data = request.data
-    serializer = HouseSerializer(data=data)
-    try:
-        if serializer.is_valid('raise_exception'):
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-    except serializers.ValidationError as error:
-        print(error)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'POST':
+        data = request.data
+        serializer = HouseSerializer(data=data)
+        try:
+            if serializer.is_valid('raise_exception'):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except serializers.ValidationError as error:
+            print(error)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'PATCH':
+        data = request.data
+        house_id = data['id']
+        try:
+            house = House.objects.get(pk=house_id)
+            house.location = data['location']
+            house.save()
+        except House.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        data = request.data
+        house_id = data['id']
+        house = House.objects.get(pk=house_id)
+        house.delete()
 
 
 def get_house_images(houses_obj):

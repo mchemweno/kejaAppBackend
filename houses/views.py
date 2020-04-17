@@ -69,42 +69,24 @@ def get_house_images(houses_obj):
     return houses_obj
 
 
-"""create house images"""
+"""create house images. The if is for when we put a get request"""
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 def house_image(request):
     if request.method == 'POST':
         data = request.data
         new_house_id = data['houseId']
-        print(data)
         if 'houseId' in data:
             del data['houseId']
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        for image in data.values():
-            save_house_image(new_house_id, image)
-
-        return Response(status=status.HTTP_201_CREATED)
-    # house_image_serializer = HouseImagesSerializer(data=data)
-    # try:
-    #     if house_image_serializer.is_valid('raise_exception'):
-    #         house_image_serializer.save()
-    #         return Response(status=status.HTTP_201_CREATED)
-    #
-    # except serializers.ValidationError:
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'GET':
-        pass
-
-
-def save_house_image(house_id, image):
-    try:
-        image_model = HouseImages.objects.create(
-            house=house_id,
-            image=image
-        )
-        image_model.save()
-    except:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        try:
+            for image in data.values():
+                house_image_data = {'house': new_house_id, 'image': image}
+                house_image_serializer = HouseImagesSerializer(data=house_image_data)
+                if house_image_serializer.is_valid('raise_exception'):
+                    house_image_serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        except serializers.ValidationError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

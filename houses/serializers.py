@@ -17,7 +17,7 @@ class HouseSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = House
         geo_field = 'location'
-        fields = ('name', 'category', 'rooms', 'price', 'amenities', 'master_image', 'owner')
+        fields = '__all__'
 
 
 class HouseImagesSerializer(serializers.ModelSerializer):

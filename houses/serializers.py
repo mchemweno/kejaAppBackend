@@ -12,8 +12,6 @@ class UserCreateSerializer(UserCreateSerializer):
 
 
 class HouseSerializer(GeoFeatureModelSerializer):
-    location = PointField()
-
     class Meta:
         model = House
         geo_field = 'location'

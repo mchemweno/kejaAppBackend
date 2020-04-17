@@ -52,7 +52,7 @@ def create_house(request):
     try:
         if serializer.is_valid('raise_exception'):
             serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
     except serializers.ValidationError as error:
         print(error)
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -72,14 +72,18 @@ def get_house_images(houses_obj):
 """create house images"""
 
 
-@api_view(['POST'])
-def create_house_image(request):
-    data = request.data
-    house_image_serializer = HouseImagesSerializer(data=data)
-    try:
-        if house_image_serializer.is_valid('raise_exception'):
-            house_image_serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+@api_view(['POST', 'GET'])
+def house_image(request):
+    if request.method == 'POST':
+        data = request.data
+        house_image_serializer = HouseImagesSerializer(data=data)
+        try:
+            if house_image_serializer.is_valid('raise_exception'):
+                house_image_serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
 
-    except serializers.ValidationError:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        except serializers.ValidationError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'GET':
+        pass

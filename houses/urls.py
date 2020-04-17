@@ -10,5 +10,5 @@ urlpatterns = [
     path('all_houses', views.get_houses),
     path('all_houses/point', views.get_houses_around_specific_point),
     path('create_house', views.create_house),
-    path('create_house_image', views.create_house_image)
+    path('house_images', views.house_image)
 ]

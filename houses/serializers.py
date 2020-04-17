@@ -2,6 +2,7 @@ from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
 from .models import *
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
+from drf_extra_fields.geo_fields import PointField
 
 
 class UserCreateSerializer(UserCreateSerializer):
@@ -11,6 +12,8 @@ class UserCreateSerializer(UserCreateSerializer):
 
 
 class HouseSerializer(GeoFeatureModelSerializer):
+    location = PointField()
+
     class Meta:
         model = House
         geo_field = 'location'

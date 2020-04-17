@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models import ImageField
-from drf_extra_fields.geo_fields import PointField
+from django.contrib.postgres.fields import ArrayField
 
 from imagekit.models import ProcessedImageField
 
@@ -40,7 +40,7 @@ class House(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     rooms = models.IntegerField(default=0)
     price = models.IntegerField()
-    location = PointField()
+    location = models.PointField()
     amenities = JSONField(default=my_default)
     master_image = ImageField(upload_to='media/master_image/%y/%m/%d')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

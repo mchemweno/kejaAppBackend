@@ -76,8 +76,8 @@ def get_house_images(houses_obj):
 def house_image(request):
     if request.method == 'POST':
         data = request.data
-        new_house_id = data['houseId']
         if 'houseId' in data:
+            new_house_id = data['houseId']
             del data['houseId']
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)

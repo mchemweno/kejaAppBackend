@@ -10,10 +10,10 @@ class UserCreateSerializer(UserCreateSerializer):
         fields = '__all__'
 
 
-class HouseSerializer(GeoFeatureModelSerializer):
+class HouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = House
-        geo_field = 'location'
+        #geo_field = 'location'
         fields = '__all__'
 
 

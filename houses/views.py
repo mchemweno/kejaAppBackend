@@ -26,7 +26,6 @@ def get_houses(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-
 @api_view(['GET'])
 def get_houses_around_specific_point(request):
     try:
@@ -54,7 +53,8 @@ def create_house(request):
         if serializer.is_valid('raise_exception'):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-    except serializers.ValidationError:
+    except serializers.ValidationError as error:
+        print(error)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 

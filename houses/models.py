@@ -13,7 +13,7 @@ class User(AbstractUser):
     email = models.EmailField(verbose_name='email', max_length=40, unique=True)
     phone = models.IntegerField(null=True)
     isOwner = models.BooleanField(default=False)
-    REQUIRED_FIELDS = ['username']
+    profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
     USERNAME_FIELD = 'email'
 

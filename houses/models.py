@@ -2,9 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models import ImageField
-from django.contrib.postgres.fields import ArrayField
-
-from imagekit.models import ProcessedImageField
 
 
 # Create your models here.
@@ -14,6 +11,8 @@ class User(AbstractUser):
     phone = models.IntegerField(null=True)
     isOwner = models.BooleanField(default=False)
     profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
+
+    REQUIRED_FIELDS = ['username']
 
     USERNAME_FIELD = 'email'
 

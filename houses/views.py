@@ -57,9 +57,9 @@ def activation(request, uid, token, *args, **kwargs):
     post_data = {'uid': uid, 'token': token}
     response = requests.post(post_url, data=post_data)
     if response.status_code == 204:
-        return render(request, 'professionals_app/success_activation.html')
+        return render(request, 'houses/success_activation.html')
     else:
-        return render(request, 'professionals_app/unsuccessful_activation.html')
+        return render(request, 'houses/unsuccessful_activation.html')
 
 
 @api_view(['GET', 'POST'])

@@ -1,12 +1,87 @@
+import requests
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import Point
+from django.http import JsonResponse
+from django.shortcuts import render
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .serializers import *
 
 # Create your views here.
+
+""" Views for users:-
+ 1. Getting all users. 
+ 2. Getting user details of a specific user
+ """
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def user_list(request, *args, **kwargs):
+    users = User.objects.all()
+    serializer = UserCreateSerializer(users, context={"request": request}, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def user_detail_email(request, email, *args, **kwargs):
+    try:
+        user = User.objects.get(email__contains=email)
+        serializer = UserCreateSerializer(user, context={"request": request})
+        return JsonResponse(serializer.data)
+    except User.DoesNotExist:
+        return Response(data={}, status=404)
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def user_detail_id(request, id, *args, **kwargs):
+    try:
+        user = User.objects.get(pk=id)
+        serializer = UserCreateSerializer(user, context={"request": request})
+        return JsonResponse(serializer.data)
+    except User.DoesNotExist:
+        return Response(data={}, status=404)
+
+
+# Reset password, send activation email and resend activation email.
+@api_view(['GET'])
+def activation(request, uid, token, *args, **kwargs):
+    protocol = 'https://' if request.is_secure() else 'http://'
+    web_url = protocol + request.get_host()
+    post_url = web_url + '/houses/users/activation/'
+    post_data = {'uid': uid, 'token': token}
+    response = requests.post(post_url, data=post_data)
+    if response.status_code == 204:
+        return render(request, 'professionals_app/success_activation.html')
+    else:
+        return render(request, 'professionals_app/unsuccessful_activation.html')
+
+
+@api_view(['GET', 'POST'])
+def reset(request, uid, token, *args, **kwargs):
+    if request.POST:
+        new_password = request.POST.get('new_password')
+        re_new_password = request.POST.get('re_new_password')
+        post_data = {'uid': uid, 'token': token, 'new_password': new_password, 're_new_password': re_new_password}
+
+        protocol = 'https://' if request.is_secure() else 'http://'
+        web_url = protocol + request.get_host()
+        post_url = web_url + '/houses/users/reset_password_confirm/'
+
+        response = requests.post(post_url, data=post_data)
+        if response.status_code == 204:
+            return render(request, 'houses/success_reset.html')
+        else:
+            return render(request, 'houses/unsuccessful_reset.html')
+    else:
+        return render(request, 'houses/reset_password.html')
+
+
 """ Views for houses:-
  1. Getting all houses. 
  2. Getting houses around a certain point

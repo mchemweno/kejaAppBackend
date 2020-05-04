@@ -165,3 +165,16 @@ def house_image(request):
             return Response(status=status.HTTP_201_CREATED)
         except serializers.ValidationError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+"""get house categories. """
+
+
+@api_view(['GET'])
+def get_categories(request):
+    try:
+        category = Category.objects.all()
+        category_serializer = CategorySerializer(category, many=True)
+        return Response(category_serializer.data)
+    except House.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)

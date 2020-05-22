@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from random import randint
+from random import randint, shuffle
 
 from .serializers import *
 
@@ -95,6 +95,18 @@ def reset(request, uid, token, *args, **kwargs):
 def get_houses(request):
     try:
         house = House.objects.all()
+        house_serializer = HouseSerializer(house, many=True).data
+        updates_houses = get_house_images(house_serializer)
+        return Response(updates_houses)
+    except House.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_shuffled_houses(request):
+    try:
+        house = list(House.objects.all()[:30])
+        shuffle(house)
         house_serializer = HouseSerializer(house, many=True).data
         updates_houses = get_house_images(house_serializer)
         return Response(updates_houses)

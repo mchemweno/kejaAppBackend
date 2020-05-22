@@ -17,6 +17,7 @@ urlpatterns = [
     # houses endpoints APIs
     path('all_houses', views.get_houses),
     path('all_houses/random', views.get_houses_random),
+    path('shuffled_houses', views.get_shuffled_houses),
     path('all_houses/point', views.get_houses_around_specific_point),
     path('all_houses/categories/<int:category_id>', views.get_houses_category_id),
     path('create_house', views.create_house),

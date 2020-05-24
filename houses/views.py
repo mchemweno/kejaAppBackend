@@ -145,6 +145,17 @@ def get_houses_category_id(request, category_id):
 
 
 @api_view(['GET'])
+def get_houses_owner_id(request, owner_id):
+    try:
+        house = House.objects.filter(owner=owner_id)
+        house_serializer = HouseSerializer(house, many=True).data
+        updates_houses = get_house_images(house_serializer)
+        return Response(updates_houses)
+    except House.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
 def get_houses_around_specific_point(request):
     try:
         latitude = float(request.GET.get('latitude', ''))

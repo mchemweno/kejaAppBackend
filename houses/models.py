@@ -1,10 +1,20 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import JSONField
-from django.db.models import ImageField
+from django.db.models import ImageField, Q
 
 
 # Create your models here.
+
+
+class CustomUserManager(UserManager):
+
+    def get_by_natural_key(self, username):
+        return self.get(
+            Q(**{self.model.USERNAME_FIELD: username}) |
+            Q(**{self.model.EMAIL_FIELD: username})
+        )
+
 
 class User(AbstractUser):
     email = models.EmailField(verbose_name='email', max_length=40, unique=True)
@@ -12,9 +22,7 @@ class User(AbstractUser):
     isOwner = models.BooleanField(default=False)
     profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
-    REQUIRED_FIELDS = ['username']
-
-    USERNAME_FIELD = 'email'
+    objects = CustomUserManager()
 
     def get_username(self):
         return self.username

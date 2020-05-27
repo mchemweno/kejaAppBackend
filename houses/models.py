@@ -21,7 +21,8 @@ class User(AbstractUser):
     isOwner = models.BooleanField(default=False)
     profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
-    REQUIRED_FIELDS = ['id', 'last_login', 'first_name', 'last_name', 'phone', 'isOwner', 'profile_picture',
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'id', 'last_login', 'first_name', 'last_name', 'phone', 'isOwner', 'profile_picture',
                        'date_joined']
     objects = CustomUserManager()
 

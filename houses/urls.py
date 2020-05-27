@@ -5,7 +5,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    #djoser
+    # djoser
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
     # django rest framework social auth 2

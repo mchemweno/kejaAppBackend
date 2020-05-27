@@ -133,7 +133,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.user.user_details'
 )
 
 # SOCIAL_AUTH_POSTGRES_JSONFIELD = True
@@ -149,12 +149,9 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email, picture',
 }
 
-
 AUTH_USER_MODEL = 'houses.User'
 
 DJOSER = {
-    'USER_ID_FIELD': 'email',
-    'LOGIN_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'houses/users/password-reset/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,

@@ -111,9 +111,29 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    # Facebook OAuth2
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    # django-rest-framework-social-oauth2
     'rest_framework_social_oauth2.backends.DjangoOAuth2',
+
+    # django
     'django.contrib.auth.backends.ModelBackend',
 )
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '1089568628093051'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'a6e85965852eb243566d1a5c4308d11f'
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
+# Email is not sent by default, to get it, you must request the email permission.
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
 
 AUTH_USER_MODEL = 'houses.User'
 

@@ -122,7 +122,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+# SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 # Facebook configuration
 SOCIAL_AUTH_FACEBOOK_KEY = '1089568628093051'
@@ -131,6 +131,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'a6e85965852eb243566d1a5c4308d11f'
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
 # Email is not sent by default, to get it, you must request the email permission.
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email,id,name'
 }

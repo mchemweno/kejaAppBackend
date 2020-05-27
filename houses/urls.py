@@ -5,8 +5,11 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    # path('', include('djoser.urls')),
-    # path('', include('djoser.urls.authtoken')),
+    #djoser
+    path('', include('djoser.urls')),
+    path('', include('djoser.urls.authtoken')),
+    # django rest framework social auth 2
+    path('auth/', include('rest_framework_social_oauth2.urls')),
     # "Users endpoints
     path('users', views.user_list),
     path('users/email/<str:email>', views.user_detail_email),

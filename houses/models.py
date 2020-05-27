@@ -22,6 +22,7 @@ class User(AbstractUser):
     isOwner = models.BooleanField(default=False)
     profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
+    REQUIRED_FIELDS = ['email', 'phone', 'isOwner', 'profile_picture', 'first_name', 'last_name', 'username']
     objects = CustomUserManager()
 
     def get_username(self):

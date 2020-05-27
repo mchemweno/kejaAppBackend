@@ -17,12 +17,13 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractUser):
+    email = models.EmailField(max_length=40, unique=True)
     phone = models.IntegerField(null=True)
     isOwner = models.BooleanField(default=False)
-    profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
+    picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'id', 'last_login', 'first_name', 'last_name', 'phone', 'isOwner', 'profile_picture',
+    REQUIRED_FIELDS = ['id', 'email', 'last_login', 'first_name', 'last_name', 'phone', 'isOwner', 'profile_picture',
                        'date_joined']
     objects = CustomUserManager()
 

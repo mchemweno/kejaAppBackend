@@ -122,6 +122,20 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Associate users by email for multiple social sites
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',  # <--- enable this one
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 # SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 # Facebook configuration
@@ -130,10 +144,17 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'a6e85965852eb243566d1a5c4308d11f'
 
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
 # Email is not sent by default, to get it, you must request the email permission.
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'email,id,name'
+    'fields': 'id, name, email, picture',
 }
+
+# SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
+#     ('name', 'name'),
+#     ('email', 'email'),
+#     ('picture', 'picture'),
+#     ('public_profile', 'public_profile')
+# ]
 
 AUTH_USER_MODEL = 'houses.User'
 

@@ -25,7 +25,9 @@ class User(AbstractUser):
     objects = CustomUserManager()
 
     def get_username(self):
-        return self.username
+        if self.email is None:
+            return self.username
+        return self.email
 
 
 class Category(models.Model):

@@ -12,9 +12,9 @@ class User(AbstractUser):
     isOwner = models.BooleanField(default=False)
     profile_picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
-    REQUIRED_FIELDS = ['username']
-
-    USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = ['username']
+    #
+    # USERNAME_FIELD = 'email'
 
     def get_username(self):
         return self.email

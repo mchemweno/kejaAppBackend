@@ -132,7 +132,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'a6e85965852eb243566d1a5c4308d11f'
 # Email is not sent by default, to get it, you must request the email permission.
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'email, id, name'
+    'fields': 'email,id,name'
 }
 
 AUTH_USER_MODEL = 'houses.User'

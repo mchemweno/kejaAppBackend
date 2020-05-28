@@ -23,8 +23,7 @@ class User(AbstractUser):
     picture = ImageField(upload_to='media/profile_picture/%y/%m/%d', blank=True)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['id', 'email', 'last_login', 'first_name', 'last_name', 'phone', 'picture',
-                       'date_joined', 'isOwner']
+    REQUIRED_FIELDS = ['id', 'email', 'first_name', 'last_name', 'phone', 'picture']
     objects = CustomUserManager()
 
     def get_username(self):
